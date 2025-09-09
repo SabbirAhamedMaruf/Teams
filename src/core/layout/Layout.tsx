@@ -8,8 +8,12 @@ import Search from "./Shared/Sidebar/Search";
 import { useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import AllMenus from "./Shared/Sidebar/AllMenus";
+import useAppHelmetHelperService from "../hook/useAppHelmetHelperService";
 
 const Layout = () => {
+  // App helmet service
+  useAppHelmetHelperService();
+
   return (
     <Flex minH="100vh" maxW="100vw" background={"#FFFFFF"}>
       <Sidebar />

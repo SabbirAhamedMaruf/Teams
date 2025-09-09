@@ -3,6 +3,7 @@ import type { RouteObject } from "react-router-dom";
 import Dashboard from "../pages/dashboard/Dashboard";
 import Error from "../pages/error/Error";
 import Layout from "../layout/Layout";
+import Settings from "../pages/settings/Settings";
 
 export type TeamRoute = RouteObject & {
   elementName: string;
@@ -20,6 +21,11 @@ export const routes: TeamRoute[] = [
         path: "/",
         elementName: "Dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "/settings",
+        elementName: "Settings",
+        element: <Settings />,
       },
     ],
   },
