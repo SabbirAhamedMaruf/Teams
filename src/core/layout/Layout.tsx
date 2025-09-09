@@ -34,14 +34,14 @@ const Sidebar = () => {
 
   return (
     <Stack
-      minW={isCollapsed ? "100px" : "300px"}
+      minW={isCollapsed ? "40px" : "300px"}
       maxW={"300px"}
       p={2}
       border={"1px solid red"}
     >
       {/* Brand */}
-      <HStack>
-        <Brand />
+      <HStack justifyContent={"space-between"} border={"1px solid red"}>
+        <Brand isCollapsed={isCollapsed} />
         <IconButton
           onClick={() => setIsCollapsed(!isCollapsed)}
           aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
@@ -50,10 +50,10 @@ const Sidebar = () => {
         </IconButton>
       </HStack>
       <HStack>
-        <Search />
+        <Search isCollapsed={isCollapsed} />
       </HStack>
       <HStack>
-        <AllMenus />
+        <AllMenus isCollapsed={isCollapsed} />
       </HStack>
     </Stack>
   );

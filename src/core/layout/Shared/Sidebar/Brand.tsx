@@ -1,12 +1,17 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
-const Brand = () => {
+
+type BrandType = {
+  isCollapsed: boolean;
+};
+
+const Brand = ({ isCollapsed }: BrandType) => {
   const location = useLocation();
   const navigate = useNavigate();
   return (
     <Flex justifyContent={"center"} alignItems={"center"} gap={2}>
       <Flex
-        onClick={()=>location?.pathname !== "/" && navigate("/")}
+        onClick={() => location?.pathname !== "/" && navigate("/")}
         cursor={"pointer"}
         justifyContent={"center"}
         alignItems={"center"}
@@ -20,11 +25,8 @@ const Brand = () => {
       >
         T
       </Flex>
-      <Box>
-        <Text
-        fontSize={25}
-        fontWeight={600}
-        lineHeight={"22px"}>
+      <Box display={isCollapsed ? "none" : "block"}>
+        <Text fontSize={25} fontWeight={600} lineHeight={"22px"}>
           Teams
         </Text>
         <Text

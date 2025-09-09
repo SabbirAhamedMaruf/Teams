@@ -4,7 +4,11 @@ import { Box, Flex, Input, Text, useDisclosure } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 
-const Search = () => {
+type SearchType = {
+  isCollapsed: boolean;
+};
+
+const Search = ({ isCollapsed }: SearchType) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { open, onOpen, onClose } = useDisclosure();
   const [isFocused, setIsFocused] = useState(false);

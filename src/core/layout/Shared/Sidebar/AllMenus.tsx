@@ -1,7 +1,12 @@
 import { Accordion, Button, Span, VStack } from "@chakra-ui/react";
 import { teamsMenus, type teamsMenusType } from "../../menus";
 import { Link } from "react-router-dom";
-const AllMenus = () => {
+
+type AllMenusType = {
+  isCollapsed: boolean;
+};
+
+const AllMenus = ({ isCollapsed }: AllMenusType) => {
   return (
     <VStack width={"100%"}>
       <Accordion.Root
@@ -13,7 +18,12 @@ const AllMenus = () => {
         {Array?.isArray(teamsMenus) &&
           teamsMenus?.length &&
           teamsMenus?.map((menu, index) => (
-            <SingleMenu key={index} menuData={menu} depth={1} />
+            <SingleMenu
+              key={index}
+              menuData={menu}
+              isCollapsed={isCollapsed}
+              depth={1}
+            />
           ))}
       </Accordion.Root>
     </VStack>
@@ -24,10 +34,11 @@ export default AllMenus;
 
 type SingleMenuType = {
   menuData: teamsMenusType;
+  isCollapsed: boolean;
   depth: number;
 };
 
-const SingleMenu = ({ menuData, depth = 1 }: SingleMenuType) => {
+const SingleMenu = ({ menuData, depth = 1, isCollapsed }: SingleMenuType) => {
   const {
     title,
     redirectUrl,
@@ -42,28 +53,42 @@ const SingleMenu = ({ menuData, depth = 1 }: SingleMenuType) => {
     <>
       {!isSubmenuExits ? (
         <Link to={redirectUrl}>
-          <Button>
+          <Button
+            width={"100%"}
+            fontSize={20}
+            justifyContent={isCollapsed ? "center" : "flex-start"}
+          >
             {Icon && <Icon />}
-            {title}
+            {!isCollapsed && title}
           </Button>
         </Link>
       ) : (
         <Accordion.Item value={redirectUrl} borderBottom={"none"}>
           <Accordion.ItemTrigger
-            justifyContent={"space-between"}
             width={"100%"}
-            border={"1px solid red"}
+            minH={"38px"}
+            justifyContent={isCollapsed ? "center" : "space-between"}
           >
-            <Span display={"inline-flex"} alignItems={"center"} gap={2}>
+            <Span
+              fontSize={20}
+              display={"inline-flex"}
+              alignItems={"center"}
+              gap={2}
+            >
               {Icon && <Icon />}
-              {title}
+              {!isCollapsed && title}
             </Span>
-            <Accordion.ItemIndicator />
+            {!isCollapsed && <Accordion.ItemIndicator />}
           </Accordion.ItemTrigger>
           <Accordion.ItemContent>
             <Accordion.ItemBody display={"flex"} flexDir={"column"} ml={2}>
               {submenus?.map((submenu, index) => (
-                <SingleMenu key={index} menuData={submenu} depth={depth + 1} />
+                <SingleMenu
+                  key={index}
+                  menuData={submenu}
+                  isCollapsed={isCollapsed}
+                  depth={depth + 1}
+                />
               ))}
             </Accordion.ItemBody>
           </Accordion.ItemContent>
