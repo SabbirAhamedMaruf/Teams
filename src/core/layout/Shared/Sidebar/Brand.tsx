@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 type BrandType = {
@@ -8,37 +8,54 @@ type BrandType = {
 const Brand = ({ isCollapsed }: BrandType) => {
   const location = useLocation();
   const navigate = useNavigate();
+
   return (
-    <Flex justifyContent={"center"} alignItems={"center"} gap={2}>
+    <Flex justifyContent="center" alignItems="center" gap={2}>
       <Flex
         onClick={() => location?.pathname !== "/" && navigate("/")}
-        cursor={"pointer"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        height={"45px"}
-        width={"45px"}
-        background={"#000000"}
-        color={"#FFFFFF"}
+        cursor="pointer"
+        justifyContent="center"
+        alignItems="center"
+        height="40px"
+        width="40px"
+        background="#000000"
+        color="#FFFFFF"
         fontSize={25}
-        fontFamily={"Asimovian"}
+        fontFamily="Asimovian"
         fontWeight={600}
+        borderRadius={3}
       >
         T
       </Flex>
-      <Box display={isCollapsed ? "none" : "block"}>
-        <Text fontSize={25} fontWeight={600} lineHeight={"22px"}>
+
+      <Flex
+        flexDir="column"
+        overflow="hidden"
+        maxW={isCollapsed ? "0px" : "200px"}
+        opacity={isCollapsed ? 0 : 1}
+        transition="max-width 0.3s ease, opacity 0.3s ease"
+      >
+        <Text
+          color="#000000"
+          fontSize={22}
+          fontWeight={600}
+          lineHeight="22px"
+          whiteSpace="nowrap"
+        >
           Teams
         </Text>
         <Text
-          color={"#BEBEBE"}
+          color="#BEBEBE"
           fontSize={13}
           fontWeight={600}
-          lineHeight={"22px"}
+          lineHeight="22px"
+          whiteSpace="nowrap"
         >
           xyz company
         </Text>
-      </Box>
+      </Flex>
     </Flex>
   );
 };
+
 export default Brand;

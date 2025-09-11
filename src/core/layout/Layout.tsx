@@ -1,14 +1,13 @@
 import { Box, Flex, HStack, IconButton, Stack } from "@chakra-ui/react";
+import { useState } from "react";
+import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { Outlet } from "react-router-dom";
+import useAppHelmetHelperService from "../hook/useAppHelmetHelperService";
+import AllMenus from "./Shared/Sidebar/AllMenus";
 import Brand from "./Shared/Sidebar/Brand";
 import TeamBreadCrumb from "./Shared/Topbar/BreadCrumb";
 import Notification from "./Shared/Topbar/Notification";
 import User from "./Shared/Topbar/User";
-import Search from "./Shared/Sidebar/Search";
-import { useState } from "react";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import AllMenus from "./Shared/Sidebar/AllMenus";
-import useAppHelmetHelperService from "../hook/useAppHelmetHelperService";
 
 const Layout = () => {
   // App helmet service
@@ -30,30 +29,51 @@ export default Layout;
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  console.log("Log => | Sidebar | isCollapsed:", isCollapsed);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   return (
     <Stack
-      minW={isCollapsed ? "40px" : "300px"}
-      maxW={"300px"}
-      p={2}
-      border={"1px solid red"}
+      justifyContent="space-between"
+      width={isCollapsed ? "100px" : "300px"}
+      maxW="300px"
+      p={3}
+      transition="width 0.3s ease-in-out"
+      overflow="hidden"
+      onAnimationEnd={() => setIsAnimating(false)}
     >
       {/* Brand */}
-      <HStack justifyContent={"space-between"} border={"1px solid red"}>
-        <Brand isCollapsed={isCollapsed} />
-        <IconButton
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-        >
-          {isCollapsed ? <IoIosArrowForward /> : <IoIosArrowBack />}
-        </IconButton>
-      </HStack>
+      <Flex flexDir={"column"} gap={2}>
+        <HStack justifyContent={"space-between"}>
+          <Brand isCollapsed={isCollapsed} isAnimating={isAnimating} />
+          {/* //TODO: Apply toggle button on top of brand logo while hovering */}
+          <IconButton
+            onClick={() => {
+              setIsAnimating(true);
+              setIsCollapsed(!isCollapsed);
+            }}
+            _hover={{
+              background: "transparent",
+            }}
+            aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            background={"transparent"}
+            color={"#00070B"}
+          >
+            {isCollapsed ? (
+              <GoSidebarCollapse fontSize={22} />
+            ) : (
+              <GoSidebarExpand fontSize={22} />
+            )}
+          </IconButton>
+        </HStack>
+        {/* <HStack>
+          <Search isCollapsed={isCollapsed} />
+        </HStack> */}
+        <HStack>
+          <AllMenus isCollapsed={isCollapsed} />
+        </HStack>
+      </Flex>
       <HStack>
-        <Search isCollapsed={isCollapsed} />
-      </HStack>
-      <HStack>
-        <AllMenus isCollapsed={isCollapsed} />
+        <User isCollapsed={isCollapsed} />
       </HStack>
     </Stack>
   );

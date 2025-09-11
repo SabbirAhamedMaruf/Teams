@@ -1,6 +1,5 @@
-import Modal from "@/core/components/general/Modal";
 import { useKeyboardTrigger } from "@/core/hook/useKeyboardTrigger";
-import { Box, Flex, Input, Text, useDisclosure } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 
@@ -10,7 +9,6 @@ type SearchType = {
 
 const Search = ({ isCollapsed }: SearchType) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { open, onOpen, onClose } = useDisclosure();
   const [isFocused, setIsFocused] = useState(false);
   useKeyboardTrigger("ctrl+l", () => {
     inputRef.current?.focus();
@@ -18,7 +16,6 @@ const Search = ({ isCollapsed }: SearchType) => {
 
   return (
     <Flex
-      onClick={() => onOpen()}
       justifyContent={"space-around"}
       alignItems={"center"}
       gap={2}
@@ -31,14 +28,6 @@ const Search = ({ isCollapsed }: SearchType) => {
       <Box fontSize={"22px"}>
         <IoSearch fill={"#BEBEBE"} />
       </Box>
-      <Modal size={"md"} isOpen={open} onClose={onClose}>
-        <Modal.Header>
-          <Text>Search menus</Text>
-        </Modal.Header>
-        <Modal.Body>
-          <Box></Box>
-        </Modal.Body>
-      </Modal>
       <Flex
         justifyContent={"center"}
         alignItems={"center"}

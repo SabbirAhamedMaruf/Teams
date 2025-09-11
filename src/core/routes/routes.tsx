@@ -23,6 +23,11 @@ export const routes: TeamRoute[] = [
         element: <Dashboard />,
       },
       {
+        path: "/boards",
+        elementName: "Boards",
+        element: <Dashboard />,
+      },
+      {
         path: "/settings",
         elementName: "Settings",
         element: <Settings />,

@@ -1,11 +1,13 @@
-import { Breadcrumb, Flex } from "@chakra-ui/react";
-import { HiMiniSlash } from "react-icons/hi2";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import { routes as allTeamRoutes } from "../../../routes/routes";
 import type { TeamRoute } from "../../../routes/routes";
 import { useMemo } from "react";
 
-const findBreadcrumbTrail = (pathname: string, routes: TeamRoute[]): { name: string; path: string }[] => {
+const findBreadcrumbTrail = (
+  pathname: string,
+  routes: TeamRoute[]
+): { name: string; path: string }[] => {
   const segments = pathname.split("/").filter(Boolean);
   const breadCrumbArr: { name: string; path: string }[] = [];
   let currentRoutes = routes;
@@ -13,7 +15,9 @@ const findBreadcrumbTrail = (pathname: string, routes: TeamRoute[]): { name: str
 
   for (const segment of segments) {
     currentPath += `/${segment}`;
-    const match = currentRoutes.find((route) => route.path === segment || route.path === `/${segment}`);
+    const match = currentRoutes.find(
+      (route) => route.path === segment || route.path === `/${segment}`
+    );
     if (match) {
       breadCrumbArr.push({
         name: match.elementName,
@@ -39,18 +43,22 @@ const TeamBreadCrumb = () => {
   }, [location.pathname]);
 
   return (
-    <Breadcrumb.Root>
-      <Breadcrumb.List>
-        {breadcrumbs.map((crumb, idx) => (
-          <Breadcrumb.Item key={idx}>
-            <Flex justifyContent={"center"} alignItems={"center"} gap={2} fontSize={20} fontWeight={600}>
-              <Breadcrumb.Link href={crumb.path}>{crumb.name}</Breadcrumb.Link>
-              <HiMiniSlash />
-            </Flex>
-          </Breadcrumb.Item>
-        ))}
-      </Breadcrumb.List>
-    </Breadcrumb.Root>
+    <Breadcrumb>
+      {breadcrumbs.map((page, index) => (
+        <BreadcrumbItem key={index}>
+          <BreadcrumbLink
+            _hover={{ fontWeight: "550", lineHeight: "150%" }}
+            fontSize={20}
+            fontWeight={550}
+            lineHeight={"150%"}
+            textDecoration={"unset"}
+            href={page?.path}
+          >
+            {page?.name}
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+      ))}
+    </Breadcrumb>
   );
 };
 
