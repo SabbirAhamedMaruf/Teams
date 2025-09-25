@@ -10,20 +10,28 @@ const Brand = ({ isCollapsed }: BrandType) => {
   const navigate = useNavigate();
 
   return (
-    <Flex justifyContent="center" alignItems="center" gap={2}>
+    <Flex
+      w={"100%"}
+      h={"100%"}
+      justifyContent={isCollapsed ? "center" : "flex-start"}
+      alignItems="center"
+      gap={2}
+    >
       <Flex
         onClick={() => location?.pathname !== "/" && navigate("/")}
         cursor="pointer"
         justifyContent="center"
         alignItems="center"
-        height="40px"
-        width="40px"
+        w={"100%"}
+        h={"100%"}
+        maxW={"40px"}
+        maxH={"40px"}
         background="#000000"
         color="#FFFFFF"
         fontSize={25}
         fontFamily="Asimovian"
         fontWeight={600}
-        borderRadius={3}
+        borderRadius={4}
       >
         T
       </Flex>
@@ -31,6 +39,7 @@ const Brand = ({ isCollapsed }: BrandType) => {
       <Flex
         flexDir="column"
         overflow="hidden"
+        display={isCollapsed ? "none" : "flex"}
         maxW={isCollapsed ? "0px" : "200px"}
         opacity={isCollapsed ? 0 : 1}
         transition="max-width 0.3s ease, opacity 0.3s ease"

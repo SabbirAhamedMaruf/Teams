@@ -67,6 +67,11 @@ const SingleMenu: React.FC<SingleMenuTypes> = ({
           background: depth === 1 ? "#F5F5F5" : "transparent",
           color: "#000000",
         }}
+        sx={{
+          "& > span": {
+            mr: "0px",
+          },
+        }}
         width="100%"
         minH={"40px"}
         mb={1}
@@ -76,7 +81,9 @@ const SingleMenu: React.FC<SingleMenuTypes> = ({
         fontWeight={"500"}
         justifyContent={isCollapsed ? "center" : "flex-start"}
         borderRadius={8}
-        leftIcon={<Icon as={icon} color="currentcolor" fontSize={22} />}
+        leftIcon={
+          <Icon id="sabbir" as={icon} color="currentcolor" fontSize={22} />
+        }
       >
         {!isCollapsed && title}
       </Button>

@@ -4,6 +4,7 @@ import { GoGoal } from "react-icons/go";
 import { IoSettingsOutline } from "react-icons/io5";
 import { LuUsers } from "react-icons/lu";
 import { RxDashboard } from "react-icons/rx";
+import { GoTasklist } from "react-icons/go";
 
 export type teamsMenusType = {
   title: string;
@@ -18,6 +19,13 @@ export const teamsMenus: teamsMenusType[] = [
     title: "Dashboard",
     redirectUrl: "/",
     icon: RxDashboard,
+    collapsedTooltip: "Take a look at dashboard",
+    submenus: [],
+  },
+  {
+    title: "Todos",
+    redirectUrl: "/todos",
+    icon: GoTasklist,
     collapsedTooltip: "Take a look at dashboard",
     submenus: [],
   },

@@ -1,4 +1,6 @@
+import { Box } from "@chakra-ui/react";
+
 const Error = () => {
-  return <div>Error</div>;
+  return <Box>Error</Box>;
 };
 export default Error;

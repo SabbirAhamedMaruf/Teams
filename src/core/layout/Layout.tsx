@@ -16,9 +16,9 @@ const Layout = () => {
   return (
     <Flex minH="100vh" maxW="100vw" background={"#FFFFFF"}>
       <Sidebar />
-      <Box width="100%" h="100%">
+      <Box width="100%" h="100%" borderRadius={8}>
         <Topbar />
-        <Box h="calc(100vh - 50px)" w="100%" p={5} bg="#F8F8F8">
+        <Box h="calc(100vh - 50px)" w="100%" p={4} bg="#F8F8F8">
           <Outlet />
         </Box>
       </Box>
@@ -28,13 +28,13 @@ const Layout = () => {
 export default Layout;
 
 const Sidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
 
   return (
     <Stack
       justifyContent="space-between"
-      width={isCollapsed ? "100px" : "300px"}
+      width={isCollapsed ? "80px" : "300px"}
       maxW="300px"
       p={3}
       transition="width 0.3s ease-in-out"
@@ -43,20 +43,24 @@ const Sidebar = () => {
     >
       {/* Brand */}
       <Flex flexDir={"column"} gap={2}>
-        <HStack justifyContent={"space-between"}>
+        <HStack justifyContent={isCollapsed ? "center" : "space-between"}>
           <Brand isCollapsed={isCollapsed} isAnimating={isAnimating} />
-          {/* //TODO: Apply toggle button on top of brand logo while hovering */}
           <IconButton
             onClick={() => {
               setIsAnimating(true);
               setIsCollapsed(!isCollapsed);
             }}
             _hover={{
-              background: "transparent",
+              background: isCollapsed ? "#f8f8f8bf" : "transparent",
+              display: "flex",
             }}
             aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            position={isCollapsed ? "absolute" : "static"}
+            maxW={"40px"}
+            maxH={"40px"}
             background={"transparent"}
             color={"#00070B"}
+            borderRadius={4}
           >
             {isCollapsed ? (
               <GoSidebarCollapse fontSize={22} />
@@ -92,7 +96,7 @@ const Topbar = () => {
       <TeamBreadCrumb />
       <HStack>
         <Notification />
-        <User />
+        {/* <User isCollapsed={isCollapsed} /> */}
       </HStack>
     </Flex>
   );
