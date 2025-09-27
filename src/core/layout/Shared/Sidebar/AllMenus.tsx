@@ -82,7 +82,13 @@ const SingleMenu: React.FC<SingleMenuTypes> = ({
         justifyContent={isCollapsed ? "center" : "flex-start"}
         borderRadius={8}
         leftIcon={
-          <Icon id="sabbir" as={icon} color="currentcolor" fontSize={22} />
+          <Icon
+            id="sabbir"
+            as={icon}
+            color="currentcolor"
+            fontSize={22}
+            mr={1}
+          />
         }
       >
         {!isCollapsed && title}
